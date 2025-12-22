@@ -3,6 +3,7 @@ from __future__ import annotations
 import sys
 from datetime import date
 from pathlib import Path
+from typing import cast
 
 import pandas as pd
 import streamlit as st
@@ -45,10 +46,10 @@ def main() -> None:
             try:
                 entry = svc.add_entry(day=day, barcode=barcode.strip(), grams=float(grams))
                 st.success(f"Added: {entry.product_name} ({entry.grams:.0f} g)")
-            except OpenFoodFactsError as e:
-                st.error(str(e))
-            except Exception as e:
-                st.error(f"Error: {e}")
+            except OpenFoodFactsError as exc:
+                st.error(str(exc))
+            except Exception as exc:
+                st.error(f"Error: {exc}")
 
     with tabs[1]:
         st.subheader("Today log")
@@ -58,17 +59,17 @@ def main() -> None:
             st.info("No entries yet for this day.")
         else:
             rows = []
-            for e in log.entries:
+            for entry in log.entries:
                 rows.append({
-                    "time": e.timestamp.strftime("%H:%M"),
-                    "product": e.product_name,
-                    "barcode": e.barcode,
-                    "grams": e.grams,
-                    "kcal": round(e.nutrients.kcal, 1),
-                    "protein_g": round(e.nutrients.protein_g, 1),
-                    "carbs_g": round(e.nutrients.carbs_g, 1),
-                    "fat_g": round(e.nutrients.fat_g, 1),
-                    "entry_id": e.entry_id,
+                    "time": entry.timestamp.strftime("%H:%M"),
+                    "product": entry.product_name,
+                    "barcode": entry.barcode,
+                    "grams": entry.grams,
+                    "kcal": round(entry.nutrients.kcal, 1),
+                    "protein_g": round(entry.nutrients.protein_g, 1),
+                    "carbs_g": round(entry.nutrients.carbs_g, 1),
+                    "fat_g": round(entry.nutrients.fat_g, 1),
+                    "entry_id": entry.entry_id,
                 })
             df = pd.DataFrame(rows)
             st.dataframe(df.drop(columns=["entry_id"]), use_container_width=True)
@@ -82,7 +83,8 @@ def main() -> None:
             c4.metric("fat (g)", f"{totals.fat_g:.1f}")
 
             st.markdown("### Remove entry")
-            entry_id = st.selectbox("Select entry to remove", options=[r["entry_id"] for r in rows])
+            entry_ids = [str(r["entry_id"]) for r in rows]
+            entry_id = cast(str, st.selectbox("Select entry to remove", options=entry_ids))
             if st.button("Remove selected"):
                 removed = svc.remove_entry(day, entry_id)
                 if removed:

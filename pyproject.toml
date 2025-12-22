@@ -8,7 +8,6 @@ description = "Hit your daily nutrition goals with Havij!"
 authors = ["Farideh Tavakoli <farideh.tavakoli@studio.unibo.it>"]
 license = "Apache 2.0"
 readme = "README.md"
-package-mode = false
 
 [tool.poetry.dependencies]
 # update the Python versions in .github/workflows/check.yml if you change this

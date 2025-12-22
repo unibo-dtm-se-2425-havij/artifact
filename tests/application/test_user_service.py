@@ -52,11 +52,13 @@ class TestUserService(unittest.TestCase):
         self.assertEqual(repo.count_users(), 1)
         auth = repo.get_auth_by_username("alice")
         self.assertIsNotNone(auth)
+        assert auth is not None
         self.assertTrue(auth.password_hash)
         self.assertEqual(len(auth.salt), 32)
 
         authenticated = service.authenticate("alice", "secret-pass")
         self.assertIsNotNone(authenticated)
+        assert authenticated is not None
         self.assertEqual(authenticated.user_id, profile.user_id)
 
     def test_signup_rejects_empty_username_or_password(self) -> None:

@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "havij"
+name = "havij_nutrition"
 packages = [
     { include = "havij" },
 ]

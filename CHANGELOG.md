@@ -1,3 +1,9 @@
+## [1.1.0](https://github.com/unibo-dtm-se-2425-havij/artifact/compare/1.0.1...1.1.0) (2025-12-22)
+
+### Features
+
+* add manual meal entry with barcode prefill ([#6](https://github.com/unibo-dtm-se-2425-havij/artifact/issues/6)) ([ced6b26](https://github.com/unibo-dtm-se-2425-havij/artifact/commit/ced6b2685e181a0a77d87fe686fc8eab289faf0e))
+
 ## [1.0.1](https://github.com/unibo-dtm-se-2425-havij/artifact/compare/1.0.0...1.0.1) (2025-12-22)
 
 ### Bug Fixes

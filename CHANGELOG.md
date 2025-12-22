@@ -6,6 +6,21 @@
 
 ### General maintenance
 
+* **release:** 1.1.0 [skip ci] ([3ae54be](https://github.com/unibo-dtm-se-2425-havij/artifact/commit/3ae54be0cf72601d3c0258516f4b1f059668a886)), closes [#6](https://github.com/unibo-dtm-se-2425-havij/artifact/issues/6) [#6](https://github.com/unibo-dtm-se-2425-havij/artifact/issues/6)
+* **release:** 1.1.0 [skip ci] ([30651d0](https://github.com/unibo-dtm-se-2425-havij/artifact/commit/30651d07d4dacbaef49693c3c16c1646c8a676f0)), closes [#6](https://github.com/unibo-dtm-se-2425-havij/artifact/issues/6)
+
+### Refactoring
+
+* update AGENT.md ([0f2d53e](https://github.com/unibo-dtm-se-2425-havij/artifact/commit/0f2d53e1875f27f619b40fab9fbba044af23eb0a))
+
+## [1.1.0](https://github.com/unibo-dtm-se-2425-havij/artifact/compare/1.0.1...1.1.0) (2025-12-22)
+
+### Features
+
+* add manual meal entry with barcode prefill ([#6](https://github.com/unibo-dtm-se-2425-havij/artifact/issues/6)) ([ced6b26](https://github.com/unibo-dtm-se-2425-havij/artifact/commit/ced6b2685e181a0a77d87fe686fc8eab289faf0e))
+
+### General maintenance
+
 * **release:** 1.1.0 [skip ci] ([30651d0](https://github.com/unibo-dtm-se-2425-havij/artifact/commit/30651d07d4dacbaef49693c3c16c1646c8a676f0)), closes [#6](https://github.com/unibo-dtm-se-2425-havij/artifact/issues/6)
 
 ### Refactoring

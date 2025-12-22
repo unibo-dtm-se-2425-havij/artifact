@@ -1,3 +1,9 @@
+## [1.0.1](https://github.com/unibo-dtm-se-2425-havij/artifact/compare/1.0.0...1.0.1) (2025-12-22)
+
+### Bug Fixes
+
+* rename package to make release work ([#5](https://github.com/unibo-dtm-se-2425-havij/artifact/issues/5)) ([f60c29d](https://github.com/unibo-dtm-se-2425-havij/artifact/commit/f60c29d10ad170db8efef03699d8e2044b601c61))
+
 ## 1.0.0 (2025-12-22)
 
 ### Features

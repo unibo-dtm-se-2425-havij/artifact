@@ -9,6 +9,7 @@ from havij.domain.model.nutrients import Nutrients
 
 class TestMealService(unittest.TestCase):
     def test_add_entry_adds_and_saves(self) -> None:
+        user_id = "user-1"
         day = date(2025, 1, 1)
         when = datetime(2025, 1, 1, 12, 0, 0)
         log = DayLog(day=day, entries=[])
@@ -19,6 +20,7 @@ class TestMealService(unittest.TestCase):
 
         with patch("havij.application.services.meal_service.uuid.uuid4", return_value="fixed-id"):
             entry = service.add_entry(
+                user_id=user_id,
                 day=day,
                 product_name="Test Snack",
                 grams=50,
@@ -35,8 +37,8 @@ class TestMealService(unittest.TestCase):
         self.assertEqual(entry.nutrients, Nutrients(50, 1, 2, 0.5))
         self.assertEqual(len(log.entries), 1)
         self.assertEqual(log.entries[0], entry)
-        repo.load_day.assert_called_once_with(day)
-        repo.save_day.assert_called_once_with(log)
+        repo.load_day.assert_called_once_with(day, user_id)
+        repo.save_day.assert_called_once_with(log, user_id)
 
     def test_add_entry_invalid_grams_raises(self) -> None:
         repo = Mock()
@@ -44,6 +46,7 @@ class TestMealService(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             service.add_entry(
+                user_id="user-1",
                 day=date(2025, 1, 1),
                 product_name="Test Snack",
                 grams=0,
@@ -54,6 +57,7 @@ class TestMealService(unittest.TestCase):
         repo.save_day.assert_not_called()
 
     def test_remove_entry_saves_when_removed(self) -> None:
+        user_id = "user-1"
         day = date(2025, 1, 1)
         entry = MealEntry(
             entry_id="e1",
@@ -68,36 +72,39 @@ class TestMealService(unittest.TestCase):
         repo.load_day.return_value = log
         service = MealService(repo=repo)
 
-        removed = service.remove_entry(day=day, entry_id="e1")
+        removed = service.remove_entry(user_id=user_id, day=day, entry_id="e1")
 
         self.assertTrue(removed)
-        repo.save_day.assert_called_once_with(DayLog(day=day, entries=[]))
+        repo.save_day.assert_called_once_with(DayLog(day=day, entries=[]), user_id)
 
     def test_remove_entry_no_save_when_missing(self) -> None:
+        user_id = "user-1"
         day = date(2025, 1, 1)
         log = DayLog(day=day, entries=[])
         repo = Mock()
         repo.load_day.return_value = log
         service = MealService(repo=repo)
 
-        removed = service.remove_entry(day=day, entry_id="missing")
+        removed = service.remove_entry(user_id=user_id, day=day, entry_id="missing")
 
         self.assertFalse(removed)
         repo.save_day.assert_not_called()
 
     def test_get_day_log_delegates_to_repo(self) -> None:
+        user_id = "user-1"
         day = date(2025, 1, 1)
         log = DayLog(day=day, entries=[])
         repo = Mock()
         repo.load_day.return_value = log
         service = MealService(repo=repo)
 
-        result = service.get_day_log(day)
+        result = service.get_day_log(user_id, day)
 
         self.assertEqual(result, log)
-        repo.load_day.assert_called_once_with(day)
+        repo.load_day.assert_called_once_with(day, user_id)
 
     def test_get_day_totals_returns_total_nutrients(self) -> None:
+        user_id = "user-1"
         day = date(2025, 1, 1)
         log = DayLog(
             day=day,
@@ -124,11 +131,12 @@ class TestMealService(unittest.TestCase):
         repo.load_day.return_value = log
         service = MealService(repo=repo)
 
-        totals = service.get_day_totals(day)
+        totals = service.get_day_totals(user_id, day)
 
         self.assertEqual(totals, Nutrients(150, 1.5, 3, 4.5))
 
     def test_get_last_days_totals_orders_days(self) -> None:
+        user_id = "user-1"
         end_day = date(2025, 1, 3)
         logs = {
             date(2025, 1, 1): DayLog(
@@ -172,10 +180,10 @@ class TestMealService(unittest.TestCase):
             ),
         }
         repo = Mock()
-        repo.load_day.side_effect = lambda d: logs[d]
+        repo.load_day.side_effect = lambda d, _: logs[d]
         service = MealService(repo=repo)
 
-        totals = service.get_last_days_totals(end_day=end_day, days=3)
+        totals = service.get_last_days_totals(user_id, end_day=end_day, days=3)
 
         self.assertEqual([d for d, _ in totals], [date(2025, 1, 1), date(2025, 1, 2), date(2025, 1, 3)])
         self.assertEqual([n.kcal for _, n in totals], [100, 200, 300])
@@ -185,4 +193,4 @@ class TestMealService(unittest.TestCase):
         service = MealService(repo=repo)
 
         with self.assertRaises(ValueError):
-            service.get_last_days_totals(end_day=date(2025, 1, 1), days=0)
+            service.get_last_days_totals("user-1", end_day=date(2025, 1, 1), days=0)

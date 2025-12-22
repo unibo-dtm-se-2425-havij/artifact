@@ -21,6 +21,7 @@ class TestSqliteRepository(unittest.TestCase):
                 repo = SqliteDayLogRepository(conn)
 
                 d = date(2025, 1, 1)
+                user_id = "user-1"
                 log = DayLog(day=d, entries=[
                     MealEntry(
                         entry_id="e1",
@@ -31,8 +32,8 @@ class TestSqliteRepository(unittest.TestCase):
                         nutrients=Nutrients(100, 1, 2, 3),
                     )
                 ])
-                repo.save_day(log)
-                loaded = repo.load_day(d)
+                repo.save_day(log, user_id)
+                loaded = repo.load_day(d, user_id)
                 self.assertEqual(len(loaded.entries), 1)
                 self.assertEqual(loaded.entries[0].barcode, "111")
                 self.assertEqual(loaded.total_nutrients().kcal, 100)

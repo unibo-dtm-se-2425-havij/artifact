@@ -15,6 +15,7 @@ class MealService:
 
     def add_entry(
         self,
+        user_id: str,
         day: date,
         product_name: str,
         grams: float,
@@ -36,29 +37,32 @@ class MealService:
             nutrients=nutrients,
         )
 
-        log = self._repo.load_day(day)
+        log = self._repo.load_day(day, user_id)
         log.add_entry(entry)
-        self._repo.save_day(log)
+        self._repo.save_day(log, user_id)
         return entry
 
-    def remove_entry(self, day: date, entry_id: str) -> bool:
-        log = self._repo.load_day(day)
+    def remove_entry(self, user_id: str, day: date, entry_id: str) -> bool:
+        log = self._repo.load_day(day, user_id)
         removed = log.remove_entry(entry_id)
         if removed:
-            self._repo.save_day(log)
+            self._repo.save_day(log, user_id)
         return removed
 
-    def get_day_log(self, day: date) -> DayLog:
-        return self._repo.load_day(day)
+    def get_day_log(self, user_id: str, day: date) -> DayLog:
+        return self._repo.load_day(day, user_id)
 
-    def get_day_totals(self, day: date) -> Nutrients:
-        return self.get_day_log(day).total_nutrients()
+    def get_day_totals(self, user_id: str, day: date) -> Nutrients:
+        return self.get_day_log(user_id, day).total_nutrients()
 
-    def get_last_days_totals(self, end_day: date, days: int = 7) -> List[Tuple[date, Nutrients]]:
+    def get_last_days_totals(self, user_id: str, end_day: date, days: int = 7) -> List[Tuple[date, Nutrients]]:
         if days <= 0:
             raise ValueError("days must be > 0")
         result: List[Tuple[date, Nutrients]] = []
         for i in range(days-1, -1, -1):
             d = end_day - timedelta(days=i)
-            result.append((d, self.get_day_totals(d)))
+            result.append((d, self.get_day_totals(user_id, d)))
         return result
+
+    def assign_unowned_entries(self, user_id: str) -> int:
+        return self._repo.assign_unowned_entries(user_id)

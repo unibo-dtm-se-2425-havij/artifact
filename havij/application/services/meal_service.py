@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import uuid
 from datetime import date, datetime, timedelta
-from typing import Dict, List, Tuple
+from typing import Dict, List, Optional, Tuple
 
 from havij.application.ports import DayLogRepository, ProductCatalog
 from havij.domain.model.meal import DayLog, MealEntry
@@ -14,7 +14,7 @@ class MealService:
         self._repo = repo
         self._catalog = catalog
 
-    def add_entry(self, day: date, barcode: str, grams: float, when: 'Optional[datetime]' = None) -> MealEntry:
+    def add_entry(self, day: date, barcode: str, grams: float, when: Optional[datetime] = None) -> MealEntry:
         validate_barcode(barcode)
         validate_grams(grams)
         when = when or datetime.now()

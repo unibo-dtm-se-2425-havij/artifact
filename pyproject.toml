@@ -22,6 +22,7 @@ coverage = "^7.10.7"
 mypy = "^1.18.2"
 poetry = "^1.8.5"
 poethepoet = "^0.37.0"
+types-requests = "^2.32.4.20250913"
 
 [tool.poe.tasks]
 test = "python -m unittest discover -v -s tests -p '*.py'"

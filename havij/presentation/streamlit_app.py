@@ -204,7 +204,18 @@ def main() -> None:
 
                 st.markdown("### Remove entry")
                 entry_ids = [str(r["entry_id"]) for r in rows]
-                entry_id = cast(str, st.selectbox("Select entry to remove", options=entry_ids))
+                entry_labels = {
+                    str(r["entry_id"]): f'{r["time"]} - {r["product"]}'
+                    for r in rows
+                }
+                entry_id = cast(
+                    str,
+                    st.selectbox(
+                        "Select entry to remove",
+                        options=entry_ids,
+                        format_func=lambda entry: entry_labels.get(entry, entry),
+                    ),
+                )
                 if st.button("Remove selected"):
                     removed = meal_svc.remove_entry(st.session_state["user_id"], day, entry_id)
                     if removed:

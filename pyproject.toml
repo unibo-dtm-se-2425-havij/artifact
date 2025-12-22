@@ -3,7 +3,7 @@ name = "havij"
 packages = [
     { include = "havij" },
 ]
-version = "0.1.0"
+version = "1.0.0"
 description = "Hit your daily nutrition goals with Havij!"
 authors = ["Farideh Tavakoli <farideh.tavakoli@studio.unibo.it>"]
 license = "Apache 2.0"

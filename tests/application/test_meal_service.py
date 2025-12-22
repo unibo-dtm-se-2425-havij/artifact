@@ -5,7 +5,6 @@ from unittest.mock import Mock, patch
 from havij.application.services.meal_service import MealService
 from havij.domain.model.meal import DayLog, MealEntry
 from havij.domain.model.nutrients import Nutrients
-from havij.domain.model.product import Product
 
 
 class TestMealService(unittest.TestCase):
@@ -16,18 +15,17 @@ class TestMealService(unittest.TestCase):
         repo = Mock()
         repo.load_day.return_value = log
 
-        product = Product(
-            barcode="123456",
-            name="Test Snack",
-            nutrients_per_100g=Nutrients(100, 2, 4, 1),
-        )
-        catalog = Mock()
-        catalog.get_by_barcode.return_value = product
-
-        service = MealService(repo=repo, catalog=catalog)
+        service = MealService(repo=repo)
 
         with patch("havij.application.services.meal_service.uuid.uuid4", return_value="fixed-id"):
-            entry = service.add_entry(day=day, barcode="123456", grams=50, when=when)
+            entry = service.add_entry(
+                day=day,
+                product_name="Test Snack",
+                grams=50,
+                nutrients_per_100g=Nutrients(100, 2, 4, 1),
+                when=when,
+                barcode="123456",
+            )
 
         self.assertEqual(entry.entry_id, "fixed-id")
         self.assertEqual(entry.timestamp, when)
@@ -39,19 +37,21 @@ class TestMealService(unittest.TestCase):
         self.assertEqual(log.entries[0], entry)
         repo.load_day.assert_called_once_with(day)
         repo.save_day.assert_called_once_with(log)
-        catalog.get_by_barcode.assert_called_once_with("123456")
 
     def test_add_entry_invalid_grams_raises(self) -> None:
         repo = Mock()
-        catalog = Mock()
-        service = MealService(repo=repo, catalog=catalog)
+        service = MealService(repo=repo)
 
         with self.assertRaises(ValueError):
-            service.add_entry(day=date(2025, 1, 1), barcode="123456", grams=0)
+            service.add_entry(
+                day=date(2025, 1, 1),
+                product_name="Test Snack",
+                grams=0,
+                nutrients_per_100g=Nutrients(100, 2, 4, 1),
+            )
 
         repo.load_day.assert_not_called()
         repo.save_day.assert_not_called()
-        catalog.get_by_barcode.assert_not_called()
 
     def test_remove_entry_saves_when_removed(self) -> None:
         day = date(2025, 1, 1)
@@ -66,9 +66,7 @@ class TestMealService(unittest.TestCase):
         log = DayLog(day=day, entries=[entry])
         repo = Mock()
         repo.load_day.return_value = log
-        catalog = Mock()
-
-        service = MealService(repo=repo, catalog=catalog)
+        service = MealService(repo=repo)
 
         removed = service.remove_entry(day=day, entry_id="e1")
 
@@ -80,9 +78,7 @@ class TestMealService(unittest.TestCase):
         log = DayLog(day=day, entries=[])
         repo = Mock()
         repo.load_day.return_value = log
-        catalog = Mock()
-
-        service = MealService(repo=repo, catalog=catalog)
+        service = MealService(repo=repo)
 
         removed = service.remove_entry(day=day, entry_id="missing")
 
@@ -94,9 +90,7 @@ class TestMealService(unittest.TestCase):
         log = DayLog(day=day, entries=[])
         repo = Mock()
         repo.load_day.return_value = log
-        catalog = Mock()
-
-        service = MealService(repo=repo, catalog=catalog)
+        service = MealService(repo=repo)
 
         result = service.get_day_log(day)
 
@@ -128,9 +122,7 @@ class TestMealService(unittest.TestCase):
         )
         repo = Mock()
         repo.load_day.return_value = log
-        catalog = Mock()
-
-        service = MealService(repo=repo, catalog=catalog)
+        service = MealService(repo=repo)
 
         totals = service.get_day_totals(day)
 
@@ -181,9 +173,7 @@ class TestMealService(unittest.TestCase):
         }
         repo = Mock()
         repo.load_day.side_effect = lambda d: logs[d]
-        catalog = Mock()
-
-        service = MealService(repo=repo, catalog=catalog)
+        service = MealService(repo=repo)
 
         totals = service.get_last_days_totals(end_day=end_day, days=3)
 
@@ -192,8 +182,7 @@ class TestMealService(unittest.TestCase):
 
     def test_get_last_days_totals_days_must_be_positive(self) -> None:
         repo = Mock()
-        catalog = Mock()
-        service = MealService(repo=repo, catalog=catalog)
+        service = MealService(repo=repo)
 
         with self.assertRaises(ValueError):
             service.get_last_days_totals(end_day=date(2025, 1, 1), days=0)

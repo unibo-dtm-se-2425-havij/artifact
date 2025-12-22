@@ -2,31 +2,36 @@ from __future__ import annotations
 
 import uuid
 from datetime import date, datetime, timedelta
-from typing import Dict, List, Optional, Tuple
+from typing import List, Optional, Tuple
 
 from havij.application.ports import DayLogRepository, ProductCatalog
 from havij.domain.model.meal import DayLog, MealEntry
 from havij.domain.model.nutrients import Nutrients
-from havij.domain.rules import validate_barcode, validate_grams
+from havij.domain.rules import validate_grams
 
 class MealService:
-    def __init__(self, repo: DayLogRepository, catalog: ProductCatalog):
+    def __init__(self, repo: DayLogRepository, catalog: ProductCatalog | None = None):
         self._repo = repo
-        self._catalog = catalog
 
-    def add_entry(self, day: date, barcode: str, grams: float, when: Optional[datetime] = None) -> MealEntry:
-        validate_barcode(barcode)
+    def add_entry(
+        self,
+        day: date,
+        product_name: str,
+        grams: float,
+        nutrients_per_100g: Nutrients,
+        when: Optional[datetime] = None,
+        barcode: str = "",
+    ) -> MealEntry:
         validate_grams(grams)
         when = when or datetime.now()
 
-        product = self._catalog.get_by_barcode(barcode)
-        nutrients = product.nutrients_for_grams(grams)
+        nutrients = nutrients_per_100g.scale(grams / 100.0)
 
         entry = MealEntry(
             entry_id=str(uuid.uuid4()),
             timestamp=when,
             barcode=barcode,
-            product_name=product.name,
+            product_name=product_name,
             grams=grams,
             nutrients=nutrients,
         )

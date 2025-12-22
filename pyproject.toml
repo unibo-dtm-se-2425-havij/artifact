@@ -3,8 +3,8 @@ name = "havij"
 packages = [
     { include = "havij" },
 ]
-version = "2.4.0"
-description = "A template for Python projects, using Poetry"
+version = "0.1.0"
+description = "Hit your daily nutrition goals with Havij!"
 authors = ["Farideh Tavakoli <farideh.tavakoli@studio.unibo.it>"]
 license = "Apache 2.0"
 readme = "README.md"

@@ -56,7 +56,39 @@ class TestMealService(unittest.TestCase):
         repo.load_day.assert_not_called()
         repo.save_day.assert_not_called()
 
-    def test_add_entry_macros_must_be_under_grams(self) -> None:
+    def test_add_entry_grams_above_limit_raises(self) -> None:
+        repo = Mock()
+        service = MealService(repo=repo)
+
+        with self.assertRaises(ValueError):
+            service.add_entry(
+                user_id="user-1",
+                day=date(2025, 1, 1),
+                product_name="Test Snack",
+                grams=3000.1,
+                nutrients_per_100g=Nutrients(200, 40, 30, 30),
+            )
+
+        repo.load_day.assert_not_called()
+        repo.save_day.assert_not_called()
+
+    def test_add_entry_product_name_required(self) -> None:
+        repo = Mock()
+        service = MealService(repo=repo)
+
+        with self.assertRaises(ValueError):
+            service.add_entry(
+                user_id="user-1",
+                day=date(2025, 1, 1),
+                product_name="  ",
+                grams=100,
+                nutrients_per_100g=Nutrients(200, 40, 30, 30),
+            )
+
+        repo.load_day.assert_not_called()
+        repo.save_day.assert_not_called()
+
+    def test_add_entry_macros_must_be_valid_per_100g(self) -> None:
         repo = Mock()
         service = MealService(repo=repo)
 
@@ -66,7 +98,7 @@ class TestMealService(unittest.TestCase):
                 day=date(2025, 1, 1),
                 product_name="Test Snack",
                 grams=100,
-                nutrients_per_100g=Nutrients(200, 40, 30, 30),
+                nutrients_per_100g=Nutrients(200, 40, 40, 40),
             )
 
         repo.load_day.assert_not_called()

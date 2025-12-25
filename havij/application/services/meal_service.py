@@ -7,7 +7,7 @@ from typing import List, Optional, Tuple
 from havij.application.ports import DayLogRepository, ProductCatalog
 from havij.domain.model.meal import DayLog, MealEntry
 from havij.domain.model.nutrients import Nutrients
-from havij.domain.rules import validate_grams
+from havij.domain.rules import validate_grams, validate_macros_under_grams
 
 class MealService:
     def __init__(self, repo: DayLogRepository, catalog: ProductCatalog | None = None):
@@ -27,6 +27,12 @@ class MealService:
         when = when or datetime.now()
 
         nutrients = nutrients_per_100g.scale(grams / 100.0)
+        validate_macros_under_grams(
+            nutrients.protein_g,
+            nutrients.carbs_g,
+            nutrients.fat_g,
+            grams,
+        )
 
         entry = MealEntry(
             entry_id=str(uuid.uuid4()),

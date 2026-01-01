@@ -1,3 +1,10 @@
+## [1.2.0](https://github.com/unibo-dtm-se-2425-havij/artifact/compare/1.1.0...1.2.0) (2026-01-01)
+
+### Features
+
+* validate macros under grams ([#11](https://github.com/unibo-dtm-se-2425-havij/artifact/issues/11)) ([6f8c485](https://github.com/unibo-dtm-se-2425-havij/artifact/commit/6f8c485b121d7fe38541a3ceec9965d9e23b8672))
+* validate product name, grams, and macros ([#12](https://github.com/unibo-dtm-se-2425-havij/artifact/issues/12)) ([966e419](https://github.com/unibo-dtm-se-2425-havij/artifact/commit/966e41972e1524c84aff9a8c8fc1ec1a8f80bdfa))
+
 ## [1.1.0](https://github.com/unibo-dtm-se-2425-havij/artifact/compare/1.0.1...1.1.0) (2025-12-22)
 
 ### Features

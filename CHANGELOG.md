@@ -13,44 +13,11 @@
 
 ### General maintenance
 
-* **release:** 1.1.0 [skip ci] ([3ae54be](https://github.com/unibo-dtm-se-2425-havij/artifact/commit/3ae54be0cf72601d3c0258516f4b1f059668a886)), closes [#6](https://github.com/unibo-dtm-se-2425-havij/artifact/issues/6) [#6](https://github.com/unibo-dtm-se-2425-havij/artifact/issues/6)
 * **release:** 1.1.0 [skip ci] ([30651d0](https://github.com/unibo-dtm-se-2425-havij/artifact/commit/30651d07d4dacbaef49693c3c16c1646c8a676f0)), closes [#6](https://github.com/unibo-dtm-se-2425-havij/artifact/issues/6)
 
 ### Refactoring
 
 * update AGENT.md ([0f2d53e](https://github.com/unibo-dtm-se-2425-havij/artifact/commit/0f2d53e1875f27f619b40fab9fbba044af23eb0a))
-
-## [1.1.0](https://github.com/unibo-dtm-se-2425-havij/artifact/compare/1.0.1...1.1.0) (2025-12-22)
-
-### Features
-
-* add manual meal entry with barcode prefill ([#6](https://github.com/unibo-dtm-se-2425-havij/artifact/issues/6)) ([ced6b26](https://github.com/unibo-dtm-se-2425-havij/artifact/commit/ced6b2685e181a0a77d87fe686fc8eab289faf0e))
-
-### General maintenance
-
-* **release:** 1.1.0 [skip ci] ([30651d0](https://github.com/unibo-dtm-se-2425-havij/artifact/commit/30651d07d4dacbaef49693c3c16c1646c8a676f0)), closes [#6](https://github.com/unibo-dtm-se-2425-havij/artifact/issues/6)
-
-### Refactoring
-
-* update AGENT.md ([0f2d53e](https://github.com/unibo-dtm-se-2425-havij/artifact/commit/0f2d53e1875f27f619b40fab9fbba044af23eb0a))
-
-## [1.1.0](https://github.com/unibo-dtm-se-2425-havij/artifact/compare/1.0.1...1.1.0) (2025-12-22)
-
-### Features
-
-* add manual meal entry with barcode prefill ([#6](https://github.com/unibo-dtm-se-2425-havij/artifact/issues/6)) ([ced6b26](https://github.com/unibo-dtm-se-2425-havij/artifact/commit/ced6b2685e181a0a77d87fe686fc8eab289faf0e))
-
-## [1.0.1](https://github.com/unibo-dtm-se-2425-havij/artifact/compare/1.0.0...1.0.1) (2025-12-22)
-
-### Bug Fixes
-
-* rename package to make release work ([#5](https://github.com/unibo-dtm-se-2425-havij/artifact/issues/5)) ([f60c29d](https://github.com/unibo-dtm-se-2425-havij/artifact/commit/f60c29d10ad170db8efef03699d8e2044b601c61))
-
-### General maintenance
-
-* **release:** 1.0.1 [skip ci] ([dedaaff](https://github.com/unibo-dtm-se-2425-havij/artifact/commit/dedaafff290ab99253767e037f6506e21e0c1ba2)), closes [#5](https://github.com/unibo-dtm-se-2425-havij/artifact/issues/5) [#5](https://github.com/unibo-dtm-se-2425-havij/artifact/issues/5)
-* **release:** 1.0.1 [skip ci] ([22356a5](https://github.com/unibo-dtm-se-2425-havij/artifact/commit/22356a50b49e9d08c7f008aec9bc24edbeed409f)), closes [#5](https://github.com/unibo-dtm-se-2425-havij/artifact/issues/5)
-* trigger CI/CD ([54e56cd](https://github.com/unibo-dtm-se-2425-havij/artifact/commit/54e56cd193c32aafde67a92f657dfebe3bea390e))
 
 ## [1.0.1](https://github.com/unibo-dtm-se-2425-havij/artifact/compare/1.0.0...1.0.1) (2025-12-22)
 
@@ -62,12 +29,6 @@
 
 * **release:** 1.0.1 [skip ci] ([22356a5](https://github.com/unibo-dtm-se-2425-havij/artifact/commit/22356a50b49e9d08c7f008aec9bc24edbeed409f)), closes [#5](https://github.com/unibo-dtm-se-2425-havij/artifact/issues/5)
 * trigger CI/CD ([54e56cd](https://github.com/unibo-dtm-se-2425-havij/artifact/commit/54e56cd193c32aafde67a92f657dfebe3bea390e))
-
-## [1.0.1](https://github.com/unibo-dtm-se-2425-havij/artifact/compare/1.0.0...1.0.1) (2025-12-22)
-
-### Bug Fixes
-
-* rename package to make release work ([#5](https://github.com/unibo-dtm-se-2425-havij/artifact/issues/5)) ([f60c29d](https://github.com/unibo-dtm-se-2425-havij/artifact/commit/f60c29d10ad170db8efef03699d8e2044b601c61))
 
 ## 1.0.0 (2025-12-22)
 

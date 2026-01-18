@@ -2,6 +2,9 @@
 
 Streamlit app that looks up products by barcode via Open Food Facts, logs meals, and tracks daily/weekly nutrition totals.
 
+## Live demo
+https://havij-nutrition.streamlit.app/
+
 ## Features
 - Barcode lookup with nutrition per 100g
 - Meal logging with SQLite persistence

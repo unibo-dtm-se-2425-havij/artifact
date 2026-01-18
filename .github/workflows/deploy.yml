@@ -56,6 +56,7 @@ jobs:
 
       - name: Release
         shell: bash
+        if: ${{ steps.skip_release.outputs.skip == 'false' && (github.ref_name == 'master' || github.ref_name == 'main') }}
         run: |
           npm install
           npx semantic-release --branches "${GITHUB_REF_NAME}"

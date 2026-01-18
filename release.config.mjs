@@ -22,6 +22,8 @@ if (dryRun) {
 
 import config from 'semantic-release-preconfigured-conventional-commits' with {type: 'json'};
 
+config.dryRun = dryRun;
+
 config.plugins.push(
     ["@semantic-release/exec", {
         "prepareCmd" : prepareCmd,

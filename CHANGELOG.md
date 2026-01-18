@@ -1,3 +1,9 @@
+## [1.2.1](https://github.com/unibo-dtm-se-2425-havij/artifact/compare/1.2.0...1.2.1) (2026-01-18)
+
+### Bug Fixes
+
+* **release:** prevent duplicate releases ([#13](https://github.com/unibo-dtm-se-2425-havij/artifact/issues/13)) ([7003378](https://github.com/unibo-dtm-se-2425-havij/artifact/commit/7003378e3be3b19e071c6cfd50838a9f7e0f8be9))
+
 ## [1.2.0](https://github.com/unibo-dtm-se-2425-havij/artifact/compare/1.1.0...1.2.0) (2026-01-01)
 
 ### Features

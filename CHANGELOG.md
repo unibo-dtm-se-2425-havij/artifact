@@ -1,3 +1,9 @@
+## [1.2.2](https://github.com/unibo-dtm-se-2425-havij/artifact/compare/1.2.1...1.2.2) (2026-01-22)
+
+### Documentation
+
+* **readme:** add live demo link ([#14](https://github.com/unibo-dtm-se-2425-havij/artifact/issues/14)) ([aca2149](https://github.com/unibo-dtm-se-2425-havij/artifact/commit/aca214947ff1ec474adf18ab34d139d8a16d3795))
+
 ## [1.2.1](https://github.com/unibo-dtm-se-2425-havij/artifact/compare/1.2.0...1.2.1) (2026-01-18)
 
 ### Bug Fixes
